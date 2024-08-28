@@ -9,6 +9,14 @@ services:
       - '5432:5432'
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - default
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://db:5432" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   app:
     build:
       context: .
@@ -17,11 +25,15 @@ services:
       - '80:3000'
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/shopper_api?schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/shopper_api?schema=public&connect_timeout=5000
       - TZ=utc
       - GEMINI_API_KEY
     depends_on:
       - db
+    links:
+      - db
+    networks:
+      - default
 
 volumes:
   db_data:
