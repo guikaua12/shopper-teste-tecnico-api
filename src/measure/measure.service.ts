@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { GeminiService } from '@/gemini/gemini.service';
-import { MeasureUpload, MeasureUploadResponse } from '@/measure/measure.dto';
+import { MeasureConfirm, MeasureConfirmResponse, MeasureUpload, MeasureUploadResponse } from '@/measure/measure.dto';
 import { PrismaService } from '@/prisma/prisma.service';
-import { DoubleMeasureReportException } from '@/measure/measure.exception';
+import {
+    DoubleMeasureReportException,
+    MeasureAlreadyConfirmedException,
+    MeasureNotFoundException,
+} from '@/measure/measure.exception';
 import { generationConfig, systemInstruction } from '@/measure/measure.constants';
 import { v4 as uuid } from 'uuid';
 
@@ -58,6 +62,7 @@ export class MeasureService {
                 measure_datetime,
                 measure_type,
                 has_confirmed: false,
+                measure_value,
                 image_url: url,
                 customer_code,
             },
@@ -104,5 +109,28 @@ export class MeasureService {
         }
 
         return parseInt(parts.join(''), 10);
+    }
+
+    async confirm({ measure_uuid, confirmed_value }: MeasureConfirm): Promise<MeasureConfirmResponse> {
+        const measure = await this.prisma.measure.findUnique({
+            where: {
+                measure_uuid,
+            },
+        });
+
+        if (!measure) {
+            throw new MeasureNotFoundException();
+        }
+
+        if (measure.has_confirmed) {
+            throw new MeasureAlreadyConfirmedException();
+        }
+
+        await this.prisma.measure.update({
+            data: { measure_value: confirmed_value, has_confirmed: true },
+            where: { measure_uuid },
+        });
+
+        return { success: true };
     }
 }

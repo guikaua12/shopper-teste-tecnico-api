@@ -33,3 +33,22 @@ export type MeasureUploadResponse = {
     measure_value: number;
     measure_uuid: string;
 };
+
+export const MeasureConfirmSchema = z.object({
+    measure_uuid: z.string({
+        required_error: 'measure_uuid is required',
+        invalid_type_error: 'invalid measure_uuid type',
+    }),
+    confirmed_value: z
+        .number({
+            required_error: 'confirmed_value is required',
+            invalid_type_error: 'invalid confirmed_value type',
+        })
+        .int('confirmed_value must be integer'),
+});
+
+export type MeasureConfirm = z.infer<typeof MeasureConfirmSchema>;
+
+export type MeasureConfirmResponse = {
+    success: boolean;
+};
