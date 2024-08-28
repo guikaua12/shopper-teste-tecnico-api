@@ -23,7 +23,7 @@ export class GeminiService {
     constructor(config: ConfigService) {
         this.fileManager = new GoogleAIFileManager(config.getOrThrow('GEMINI_API_KEY'));
         this.geminiClient = new GoogleGenerativeAI(config.getOrThrow('GEMINI_API_KEY'));
-        this.model = this.geminiClient.getGenerativeModel({ model: 'gemini-1.5-pro' });
+        this.model = this.geminiClient.getGenerativeModel({ model: 'gemini-1.5-flash' });
     }
 
     async upload(base64: string): Promise<ImageUploadResponse> {
