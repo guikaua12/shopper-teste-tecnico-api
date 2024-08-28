@@ -1,9 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { GeminiService } from '@/gemini/gemini.service';
-import { MeasureConfirm, MeasureConfirmResponse, MeasureUpload, MeasureUploadResponse } from '@/measure/measure.dto';
+import {
+    ListMeasuresParam,
+    ListMeasuresQuery,
+    MeasureConfirm,
+    MeasureConfirmResponse,
+    MeasureUpload,
+    MeasureUploadResponse,
+    verifyMeasureType,
+} from '@/measure/measure.dto';
 import { PrismaService } from '@/prisma/prisma.service';
 import {
     DoubleMeasureReportException,
+    InvalidMeasureTypeException,
     MeasureAlreadyConfirmedException,
     MeasureNotFoundException,
 } from '@/measure/measure.exception';
@@ -132,5 +141,18 @@ export class MeasureService {
         });
 
         return { success: true };
+    }
+
+    async listMeasures({ customer_code }: ListMeasuresParam, { measure_type }: ListMeasuresQuery) {
+        if (measure_type && !verifyMeasureType(measure_type.toUpperCase())) {
+            throw new InvalidMeasureTypeException();
+        }
+
+        return this.prisma.measure.findMany({
+            where: {
+                customer_code,
+                ...(measure_type && { measure_type }),
+            },
+        });
     }
 }

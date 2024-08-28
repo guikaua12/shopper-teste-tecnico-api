@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+export const verifyMeasureType = (val: string) => ['WATER', 'GAS'].includes(val);
+
 export const MeasureUploadSchema = z.object({
     image: z
         .string({ required_error: 'Image is required', invalid_type_error: 'Invalid image type' })
@@ -21,7 +23,7 @@ export const MeasureUploadSchema = z.object({
             invalid_type_error: 'measure_type must be WATER or GAS',
         })
         .transform((val) => val.toUpperCase())
-        .refine((val) => ['WATER', 'GAS'].includes(val), {
+        .refine(verifyMeasureType, {
             message: 'measure_type must be WATER or GAS',
         }),
 });
@@ -52,3 +54,23 @@ export type MeasureConfirm = z.infer<typeof MeasureConfirmSchema>;
 export type MeasureConfirmResponse = {
     success: boolean;
 };
+
+export const ListMeasuresParamSchema = z.object({
+    customer_code: z.string({
+        required_error: 'customer_code is required',
+        invalid_type_error: 'customer_code must be string',
+    }),
+});
+
+export type ListMeasuresParam = z.infer<typeof ListMeasuresParamSchema>;
+
+export const ListMeasuresQuerySchema = z.object({
+    measure_type: z
+        .string({
+            invalid_type_error: 'measure_type must be string',
+        })
+        .transform((val) => val.toUpperCase())
+        .optional(),
+});
+
+export type ListMeasuresQuery = z.infer<typeof ListMeasuresQuerySchema>;

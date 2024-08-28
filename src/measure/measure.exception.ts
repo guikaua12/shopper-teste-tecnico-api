@@ -21,3 +21,21 @@ export class MeasureAlreadyConfirmedException extends CustomException {
         );
     }
 }
+
+export class InvalidMeasureTypeException extends CustomException {
+    constructor() {
+        super(
+            { error_code: 'INVALID_TYPE', error_description: 'Tipo de medição não permitida' },
+            HttpStatus.BAD_REQUEST
+        );
+    }
+}
+
+export class MeasuresNotFoundException extends CustomException {
+    constructor() {
+        super(
+            { error_code: 'MEASURES_NOT_FOUND', error_description: 'Nenhuma leitura encontrada' },
+            HttpStatus.NOT_FOUND
+        );
+    }
+}
