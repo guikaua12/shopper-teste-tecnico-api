@@ -1,14 +1,15 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Patch, Post } from '@nestjs/common';
 import { ValidBody } from '@/common/zod/zod.decorator';
-import { MeasureUpload, MeasureUploadSchema } from '@/measure/measure.dto';
+import { MeasureUpload, MeasureUploadResponse, MeasureUploadSchema } from '@/measure/measure.dto';
 import { MeasureService } from '@/measure/measure.service';
 
-@Controller('measure')
+@Controller()
 export class MeasureController {
     constructor(private measureService: MeasureService) {}
 
+    @HttpCode(HttpStatus.OK)
     @Post('upload')
-    async upload(@ValidBody(MeasureUploadSchema) body: MeasureUpload) {
+    async upload(@ValidBody(MeasureUploadSchema) body: MeasureUpload): Promise<MeasureUploadResponse> {
         return this.measureService.upload(body);
     }
 }

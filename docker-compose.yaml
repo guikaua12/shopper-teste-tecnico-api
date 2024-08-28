@@ -18,6 +18,7 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:postgres@localhost:5432/shopper_api?schema=public
+      - TZ=utc
       - GEMINI_API_KEY
     depends_on:
       - db

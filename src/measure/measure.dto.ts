@@ -27,3 +27,9 @@ export const MeasureUploadSchema = z.object({
 });
 
 export type MeasureUpload = z.infer<typeof MeasureUploadSchema>;
+
+export type MeasureUploadResponse = {
+    image_url: string;
+    measure_value: number;
+    measure_uuid: string;
+};
