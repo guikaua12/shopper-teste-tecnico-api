@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { GeminiService } from '@/gemini/gemini.service';
+import { GeminiService } from '../gemini/gemini.service';
 import {
     ListMeasuresParam,
     ListMeasuresQuery,
@@ -8,15 +8,15 @@ import {
     MeasureUpload,
     MeasureUploadResponse,
     verifyMeasureType,
-} from '@/measure/measure.dto';
-import { PrismaService } from '@/prisma/prisma.service';
+} from './measure.dto';
+import { PrismaService } from '../prisma/prisma.service';
 import {
     DoubleMeasureReportException,
     InvalidMeasureTypeException,
     MeasureAlreadyConfirmedException,
     MeasureNotFoundException,
-} from '@/measure/measure.exception';
-import { generationConfig, systemInstruction } from '@/measure/measure.constants';
+} from './measure.exception';
+import { generationConfig, systemInstruction } from './measure.constants';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()

@@ -10,9 +10,9 @@ import {
 import * as fs from 'fs';
 import * as path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { NotImageException } from '@/gemini/gemini.exception';
-import { getMimeType } from '@/common/utils/file.utils';
-import { ImageUploadResponse } from '@/gemini/gemini.dto';
+import { NotImageException } from '../gemini/gemini.exception';
+import { getMimeType } from '../common/utils/file.utils';
+import { ImageUploadResponse } from '../gemini/gemini.dto';
 
 @Injectable()
 export class GeminiService {

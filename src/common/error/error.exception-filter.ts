@@ -1,6 +1,6 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
 import { Response } from 'express';
-import { CustomException } from '@/common/error/custom.exception';
+import { CustomException } from '../../common/error/custom.exception';
 import { ZodError } from 'zod';
 
 @Catch()

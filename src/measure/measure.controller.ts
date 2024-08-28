@@ -1,5 +1,5 @@
 import { Controller, Get, HttpCode, HttpStatus, Patch, Post } from '@nestjs/common';
-import { ValidBody, ValidParam, ValidQuery } from '@/common/zod/zod.decorator';
+import { ValidBody, ValidParam, ValidQuery } from '../common/zod/zod.decorator';
 import {
     ListMeasuresParam,
     ListMeasuresParamSchema,
@@ -11,9 +11,9 @@ import {
     MeasureUpload,
     MeasureUploadResponse,
     MeasureUploadSchema,
-} from '@/measure/measure.dto';
-import { MeasureService } from '@/measure/measure.service';
-import { MeasuresNotFoundException } from '@/measure/measure.exception';
+} from './measure.dto';
+import { MeasureService } from './measure.service';
+import { MeasuresNotFoundException } from './measure.exception';
 
 @Controller()
 export class MeasureController {

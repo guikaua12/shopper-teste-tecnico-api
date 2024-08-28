@@ -1,4 +1,4 @@
-import { CustomException } from '@/common/error/custom.exception';
+import { CustomException } from '../common/error/custom.exception';
 import { HttpStatus } from '@nestjs/common';
 
 export class NotImageException extends CustomException {

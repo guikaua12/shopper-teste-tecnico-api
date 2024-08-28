@@ -1,5 +1,5 @@
-import { HttpException, NotFoundException } from '@nestjs/common';
-import { Error } from '@/common/error/error.type';
+import { HttpException } from '@nestjs/common';
+import { Error } from '../../common/error/error.type';
 
 export class CustomException extends HttpException {
     public readonly error: Error;
