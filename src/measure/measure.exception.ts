@@ -9,7 +9,10 @@ export class DoubleMeasureReportException extends CustomException {
 
 export class MeasureNotFoundException extends CustomException {
     constructor() {
-        super({ error_code: 'MEASURE_NOT_FOUND', error_description: 'Leitura não encontrada' }, HttpStatus.NOT_FOUND);
+        super(
+            { error_code: 'MEASURE_NOT_FOUND', error_description: 'Leitura do mês já realizada' },
+            HttpStatus.NOT_FOUND
+        );
     }
 }
 
