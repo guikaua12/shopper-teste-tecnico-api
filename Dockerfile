@@ -1,5 +1,8 @@
 FROM node:20-alpine
 
+ARG GEMINI_API_KEY
+ENV GEMINI_API_KEY ${GEMINI_API_KEY}
+
 WORKDIR /app
 
 RUN apk update \

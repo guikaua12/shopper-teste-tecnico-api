@@ -23,6 +23,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - '80:3000'
+    env_file: .env
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/shopper_api?schema=public&connect_timeout=5000
@@ -38,3 +39,4 @@ services:
 volumes:
   db_data:
     driver: local
+
