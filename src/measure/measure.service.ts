@@ -84,7 +84,7 @@ export class MeasureService {
         };
     }
 
-    private async extractMeasureValue(imageUrl: string, mimeType: string): Promise<number> {
+    async extractMeasureValue(imageUrl: string, mimeType: string): Promise<number> {
         const result = await this.geminiService.generateContent({
             systemInstruction,
             generationConfig,
